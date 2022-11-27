@@ -252,10 +252,6 @@ static uint32_t adc_value(void){
     uint32_t voltage = 0;
     char topic[100];
     sprintf(topic, "sensor/fotoresistor");
-    uint32_t g_currentramLeft;
-
-    //g_currentramLeft = esp_get_free_heap_size();
-    //ESP_LOGE(TAG, "RAM restante com atual tarefa: %d bytes", g_currentramLeft);
 
     while (1)
     {
@@ -270,7 +266,6 @@ static uint32_t adc_value(void){
         }
         adc_reading /= NO_OF_SAMPLES;
 
-        //Convert adc_reading to voltage in mV
         voltage = esp_adc_cal_raw_to_voltage(adc_reading, adc_chars);
         printf("Raw: %d\tVoltage: %dmV\n", adc_reading, voltage);
 
@@ -327,7 +322,6 @@ void led_control(){
 void task_create(){
 
     xTaskCreate(led_control, "LED_CONTROL", 4096, NULL, 5, NULL);
-    // xTaskCreate(adc_value, "ADC_VALUE", 4096, NULL, 5, NULL);
 
 }
 
